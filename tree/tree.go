@@ -90,7 +90,7 @@ func fmt_to_list(lines []string) *list.List {
 	lst := list.New()
 	for _, v := range lines { //MENTION HERE
 		fields := strings.Fields(v)
-		//TODO: precedent spacing before file name
+		//coping with precedent spacing before file name like ^ filename$
 		re, _ := regexp.Compile("^[\\S]+\\s+\\w+\\s+\\w+\\s+\\w+\\s+\\w+\\s+\\w+\\s+\\w+\\s+\\S+\\s")
 		r := re.ReplaceAllLiteralString(v, "")
 
@@ -119,39 +119,4 @@ func show_dict(d string) []string {
 	}
 	lines := strings.Split(string(buf), "\n")
 	return lines[1 : len(lines)-1] //ok
-}
-
-func Traverse(p *list.List, event string) {
-	/*
-		mod          string
-		files_inside int
-		creator      string
-		role         string
-		size         int
-		date         string
-		name         string
-	*/
-	f := "%#v\n"
-	fmt.Println("[ ")
-	for i := p.Front(); i != nil; i = i.Next() {
-		switch event {
-		case "mod":
-			fmt.Printf(f, i.Value.(entry).mod)
-		case "files":
-			fmt.Printf(f, i.Value.(entry).files)
-		case "creator":
-			fmt.Printf(f, i.Value.(entry).creator)
-		case "role":
-			fmt.Printf(f, i.Value.(entry).role)
-		case "size":
-			fmt.Printf(f, i.Value.(entry).size)
-		case "date":
-			fmt.Printf(f, i.Value.(entry).date)
-		case "name":
-			fmt.Printf(f, i.Value.(entry).name)
-		default:
-			fmt.Printf(f, i.Value)
-		}
-	}
-	fmt.Println("]")
 }
